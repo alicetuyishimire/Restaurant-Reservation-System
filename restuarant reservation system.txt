@@ -1,0 +1,120 @@
+Project Title 
+
+Restaurant Reservation System 
+
+Project Overview 
+
+The Restaurant Reservation System is a database project designed to manage customer 
+information, table reservations, and dining schedules in a restaurant. 
+
+Many restaurants rely on phone calls or manual reservation books, which can lead to double 
+bookings, lost reservations, and poor customer experience.
+ 
+This project focuses on designing and implementing a relational database using MySQL to 
+efficiently manage reservations and improve restaurant operations.
+
+ SQL Implementation 
+
+Using MySQL, write SQL queries to:
+ 
+1. Create the database. 
+2. Create all required tables with proper constraints. 
+3. Insert the provided sample data. 
+4. Retrieve all reservations for a specific date. 
+5. Check available tables for a given time slot. 
+6. Update reservation details. 
+7. Cancel a reservation. 
+8. Use JOINs to generate reservation reports
+
+
+ANSUERS OF ALL QUESTIONS
+
+1. Create and use the database.
+
+use restaurant_db;
+
+2. Create all required tables with proper constraints. 
+
+-- customers table creating.
+
+create table customers(
+customer_id int not null ,
+first_name varchar(30),
+last_name varchar(30),
+phone varchar(15),
+primary key (customer_id));
+
+-- tables table creating.
+
+create table  tables (
+table_id int not null ,
+table_number int ,
+capacity int ,
+primary key (table_id));
+
+-- reservations table creating.
+
+create table reservations(
+reservation_id int not null,
+customer_id int not null,
+table_id int not null ,
+reservation_date date,
+reservation_time time,
+primary key (reservation_id));
+
+
+3. Insert the provided sample data. 
+
+-- records of customers table.
+
+insert into customers values (1 , "alice" ,"uwimana" ,"0789001111");
+insert into customers values (2 , "jean" ,"ndayishimiye" ,"0789002222");
+insert into customers values (3 , "grace" ,"mukamana" ,"0789003333");
+
+
+-- records of tables.
+
+insert into tables values ( 1, 1, 2);
+insert into tables values ( 2, 2, 4);
+insert into tables values ( 3, 3, 6);
+
+
+-- records of reservation table.
+
+insert into reservations values( 1, 1, 2, "2024-02-10","18:00");
+insert into reservations values( 2, 2, 3, "2024-02-10","19:00");
+insert into reservations values( 3, 3, 1, "2024-02-11","17:00");
+
+
+4. Retrieve all reservations for a specific date.
+
+select * from reservations;
+
+
+5. Check available tables for a given time slot.
+
+select count(*) from tables;
+
+
+6. Update reservation details.
+
+update reservations set reservation_time = "2:00 " where reservation_id =1 or reservation_id=2;
+
+select *  from reservations ;
+
+
+
+7. Cancel a reservation. 
+
+delete from reservations where reservation_id=1;
+
+select * from reservations;
+
+
+
+8. Use JOINs to generate reservation reports
+
+select customers.customer_id, customers.first_name , customers.last_name,
+customers.phone, tables.table_number, tables.capacity, 
+reservations.reservation_date, reservations.reservation_time from reservations inner join tables on reservations.table_id = tables.table_id inner join customers on reservations.customer_id = customers.customer_id;
+
